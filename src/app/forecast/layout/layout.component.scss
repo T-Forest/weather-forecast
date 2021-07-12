@@ -1,0 +1,23 @@
+.currentWeather {
+  display: flex;
+  border: 1px dotted #000;
+  li {
+    white-space: nowrap;
+    list-style: none;
+  }
+}
+
+.hourlyWeather {
+  display: flex;
+  flex-wrap: nowrap;
+  border: 1px dotted #000;
+  li {
+    white-space: nowrap;
+    list-style: none;
+  }
+
+  .data {
+    display: flex;
+    overflow-x: auto;
+  }
+}

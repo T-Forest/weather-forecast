@@ -1,0 +1,67 @@
+<p>千年団地の天気</p>
+<div *ngIf="forecastData; else loading">
+  <p>現在の天気</p>
+  <div class="currentWeather">
+    <ul>
+      <li>時刻</li>
+      <li>天気</li>
+      <li>風向</li>
+      <li>風速</li>
+      <li>気温</li>
+      <li>紫外線</li>
+    </ul>
+    <ul>
+      <li>
+        {{ forecastData?.currentWeather?.dt * 1000 | date: "MM/dd HH:mm" }}
+      </li>
+      <li>{{ forecastData?.currentWeather?.description }}</li>
+      <li>{{ forecastData?.currentWeather?.windDeg | windDirection }}</li>
+      <li>{{ forecastData?.currentWeather?.windSpeed }}[m/s]</li>
+      <li>{{ forecastData?.currentWeather?.temp | number: "1.1-1" }}[℃]</li>
+      <li>{{ forecastData?.currentWeather?.uvi }}</li>
+    </ul>
+  </div>
+
+  <p>１時間毎の天気</p>
+  <div class="hourlyWeather">
+    <ul>
+      <li>時刻</li>
+      <li>天気</li>
+      <li>予想降水量[mm]</li>
+      <li>風向</li>
+      <li>風速[m/s]</li>
+      <li>気温[℃]</li>
+      <li>UV index</li>
+      <li>PM2.5[μg/m3]</li>
+      <li>桜島上空の風向き</li>
+      <li>桜島上空の風速[m/s]</li>
+    </ul>
+    <div class="data">
+      <ul *ngFor="let item of forecastData?.hourlyWeather; let i = index" l>
+        <li>{{ item?.dt * 1000 | date: "MM/dd HH:mm" }}</li>
+        <li>{{ item?.description }}</li>
+        <li>{{ item?.precipitation }}</li>
+        <li>{{ item?.windDeg | windDirection }}</li>
+        <li>{{ item?.windSpeed }}</li>
+        <li>{{ item?.temp | number: "1.1-1" }}</li>
+        <li>{{ item?.uvi }}</li>
+        <li>{{ hourlyPm2_5[i]?.pm2_5 }}</li>
+        <li>
+          {{ forecastData?.sakurajimaWindInfo[i]?.windDeg | windDirection }}
+        </li>
+        <li>{{ forecastData?.sakurajimaWindInfo[i]?.windSpeed }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<p>実装中　時間範囲・・・６時間（暫定）</p>
+<p>雨降るアラート</p>
+<p>雨やむアラート</p>
+<p>PM2.5アラート</p>
+<p>紫外線アラート</p>
+<p>強風アラート</p>
+<p>桜島上空の風アラート</p>
+
+<!-- loading -->
+<ng-template #loading> now loading... </ng-template>
